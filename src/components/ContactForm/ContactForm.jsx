@@ -1,12 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
-import { addContact } from 'redux/contactsSlice.js';
-import { getContacts } from '../../redux/contactsSlice';
-import {ContactFormComponent, FormLabel, FormInput, FormAddContactBtn } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux'; //  для відправки та отримання даних з лобального state
+import { nanoid } from '@reduxjs/toolkit'; //  для генерації випадкових ID номерів
+import { useState } from 'react'; // для створення локального state
+import { addContact } from 'redux/operations';
+import {
+  ContactFormComponent,
+  FormLabel,
+  FormInput,
+  FormAddContactBtn,
+} from './ContactForm.styled';
+import { getContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const myContacts = useSelector(getContacts);
+  const [newName, setNewName] = useState(''); /* локальний state для форми */
+  const [newNumber, setNewNumber] = useState('');
+  const dispatch = useDispatch();  /* отримую посилання на метод useDispatch() для відправки даних у глобальний state */
+  const myContacts = useSelector(getContacts);  /* отримую масив об'єктів (контактів) з глобального state */
   let nameInputId = nanoid();
   let numberInputId = nanoid();
 
@@ -14,19 +22,19 @@ export const ContactForm = () => {
     e.preventDefault();
 
     const form = e.target;
-    let newContactName = form.elements.name.value;
-    let newContactNumber = form.elements.number.value;
+    setNewName(form.elements.name.value);
+    setNewNumber(form.elements.number.value);
 
     let isInMyContacts = myContacts.find(
-      contact => contact.name.toLowerCase() === newContactName.toLowerCase()
+      contact => contact.name.toLowerCase() === newName.toLowerCase()
     );
-    
+
     if (isInMyContacts) {
       form.reset();
-      return alert(`${newContactName} is already in contacts`);
+      return alert(`${newName} is already in contacts`);
     }
 
-    dispatch(addContact(newContactName, newContactNumber));
+    dispatch(addContact(newName, newNumber));
     form.reset();
   };
 
@@ -58,7 +66,6 @@ export const ContactForm = () => {
     </>
   );
 };
-
 
 // ----------------------------------------Функціональні копоненти-------------
 
