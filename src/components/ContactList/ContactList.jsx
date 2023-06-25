@@ -1,19 +1,20 @@
 import { useSelector } from "react-redux";
-import { getContacts } from 'redux/selectors';
-import { getFilter } from 'redux/selectors';
+// import { getContacts, getFilter } from 'redux/selectors'; /*--- варіант зі старими селекторами--------*/
+import { selectVisibleContacts } from 'redux/selectors'; 
 import { ContactListComponent } from './ContactList.styled';
 import { Contact } from '../Contact/Contact';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
+  const filtred = useSelector(selectVisibleContacts); /*------ логіка фільтрації винесена в selector */
 
-  const stateFilter = useSelector(getFilter);
-  const normalizedFilter = stateFilter.toLowerCase();
-  const filtred = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-  );
-  
-  
+  /*-----------------------------hw-07--- варіант зі старими селекторами--------*/
+  // const contacts = useSelector(getContacts);
+  // const stateFilter = useSelector(getFilter);
+  // const normalizedFilter = stateFilter.toLowerCase();
+  // const filtred = contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  // );
+ 
   return (
     <ContactListComponent>
       {filtred.map(({id, name, number}) => (

@@ -8,12 +8,12 @@ import {
   FormInput,
   FormAddContactBtn,
 } from './ContactForm.styled';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
   const [newName, setNewName] = useState(''); /* локальний state для форми (потрібно тільки ім'я для порівнняння з нововведеними даними) */
   const dispatch = useDispatch();  /* отримую посилання на метод useDispatch() для відправки даних у глобальний state */
-  const myContacts = useSelector(getContacts);  /* отримую масив об'єктів (контактів) з глобального state */
+  const myContacts = useSelector(selectContacts);  /* отримую масив об'єктів (контактів) з глобального state */
   let nameInputId = nanoid();
   let numberInputId = nanoid();
 
