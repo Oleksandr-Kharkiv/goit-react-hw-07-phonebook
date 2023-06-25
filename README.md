@@ -118,4 +118,4 @@ GitHub.
    <!-- npm install @redux-devtools/extension -->
    <!-- npm install @reduxjs/toolkit -->
    <!-- npm install @reduxjs/toolkit react-redux -->
-   <!-- npm i redux-persist -->
+   <!-- npm i react-toastify -->                        /* для спливаючих повідомлень */
