@@ -6,12 +6,13 @@ import { Contact } from '../Contact/Contact';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
-// console.log(contacts);
+
   const stateFilter = useSelector(getFilter);
   const normalizedFilter = stateFilter.toLowerCase();
   const filtred = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
   );
+  
   
   return (
     <ContactListComponent>
